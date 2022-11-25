@@ -1,4 +1,4 @@
-#Posty 
+# Posty 
 
 ## A short post social media project.
 
