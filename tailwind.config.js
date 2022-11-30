@@ -5,8 +5,11 @@ module.exports = {
     "./resources/**/*.js",
     "./resources/**/*.vue",
   ],
+  daisyui: {
+    themes: ["winter", "dark","light"],
+  },
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 }
