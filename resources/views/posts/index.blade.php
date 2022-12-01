@@ -2,7 +2,7 @@
     @auth
     <form action="{{ route('posts') }}" method="post" class="mb-4">
         @csrf
-        <div class="mb-4">
+        <div class="my-5">
             <label for="body" class="sr-only">Body</label>
             <textarea name="body" id="body" cols="30" rows="4" class="textarea w-full text-accent-content p-4 @error('body') border-red-500 @enderror" placeholder="Let's hear it!"></textarea>
 

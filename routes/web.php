@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserPostController;
 
 Route::get('/', function () { return view('home'); })->name('home');
@@ -31,3 +32,6 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.
 
 Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes');
+
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('posts.comments');
+Route::delete('/posts/{post}/comments', [CommentController::class, 'destroy'])->name('posts.comments');
