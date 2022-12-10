@@ -73,12 +73,11 @@
   </div>
 </div>
 
-
 <!-- Delete Post Modal -->
 <input type="checkbox" id="my-modal-4" class="modal-toggle" />
 <label for="my-modal-4" class="modal cursor-pointer">
 <label class="modal-box relative" for="">
-<label for="my-modal-4" class="btn btn-error btn-xs bg-red-500 text-white border-red-500 btn-circle absolute right-4 top-4">✕</label>
+<label for="my-modal-3" class="btn btn-error btn-xs bg-red-500 text-white border-red-500 btn-circle absolute right-4 top-4">✕</label>
 <h1 class="font-medium normal-case text-2xl flex justify-center mb-5">
             Posty
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -86,9 +85,8 @@
             </svg>
         </h1>
 
-    <h3 class="text-lg font-bold text-center text-red-500">Confirm Post Delete?</h3>
+    <h3 class="text-lg font-bold text-center text-red-500">Delete Post?</h3>
     <p class="py-6 text-center">This post will be forever lost!</p>
-    @can('delete', $post)
         <form action="{{ route('posts.destroy', $post) }}" method="post">
             @csrf
             @method('DELETE')
@@ -101,6 +99,6 @@
                 </button>
             </div>
         </form>
-    @endcan
 </label>
 </label>
+

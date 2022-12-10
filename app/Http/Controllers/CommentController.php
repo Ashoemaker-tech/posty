@@ -26,16 +26,13 @@ class CommentController extends Controller
         ]);
 
         return back();
-
         
     }
 
-    public function destroy(Comment $comment) {
+    public function destroy(Comment $comment, Request $request) {
 
-        Gate::authorize('delete', $comment);
+       $request->user()->comments()->where('id', $comment->id)->delete();
         
-        $comment->delete();
-
         return back();
     }
 }
