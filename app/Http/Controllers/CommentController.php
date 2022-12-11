@@ -11,7 +11,7 @@ class CommentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth'])->only(['store', 'destroy']);
+        $this->middleware(['auth']);
     }
     //
     public function store(Post $post, Request $request) {
@@ -29,10 +29,18 @@ class CommentController extends Controller
         
     }
 
-    public function destroy(Comment $comment, Request $request) {
+    public function update(Post $post, Request $request) {
+            $formField = $request->validate([
+                'body' =>'required'
+            ]);
+            $post->comments()->update($formField);
+            return back();
+            
+        }
 
-       $request->user()->comments()->where('id', $comment->id)->delete();
-        
+    public function destroy(Post $post, Request $request) {
+
+       $post->comments()->delete(); 
         return back();
     }
 }
