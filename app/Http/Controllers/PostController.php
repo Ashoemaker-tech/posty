@@ -39,6 +39,14 @@ class PostController extends Controller
         return back();
     }
 
+    public function update  (Post $post, Request $request) {
+        $formField = $request->validate([
+            'body' => 'required'
+        ]);
+        $post->update($formField);
+        return back();
+        }
+
     public function destroy(Post $post) {
 
         Gate::authorize('delete', $post);

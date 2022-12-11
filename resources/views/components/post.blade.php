@@ -44,7 +44,13 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                     </svg>
                 </label>
-            <span class="mx-1">{{ $post->comments->count() }} {{ Str::plural('comment', $post->comments->count()) }}</span>
+            
+        <span class="mx-1">{{ $post->comments->count() }} {{ Str::plural('comment', $post->comments->count()) }}</span>
+        @auth
+            <span class="ml-2">
+                <label for="edit-post-modal" class="text-base-content mr-2 cursor-pointer">Edit</label>
+            </span>
+        @endauth
     </div>
        @if ($post->comments->count())
             <div class="py-6">
@@ -55,6 +61,7 @@
                 <p></p>
             </div>
         @endif
+        
 </div>
 
 
@@ -107,6 +114,8 @@
 <input type="checkbox" id="my-modal-2" class="modal-toggle" />
 <div class="modal">
   <div class="modal-box">
+    <label for="my-modal-2" class="btn btn-error btn-xs bg-red-500 border-red-500 btn-circle absolute right-4 top-4">✕</label>
+    <h1 class="text-center text-2xl mb-4">Edit Comment</h1>
     <form action="{{ route('comments.update', $post) }}" method="post">
         @csrf
         @method('PUT')
@@ -120,12 +129,30 @@
   </div>
 </div>
 
+<!-- Edit Post Modal -->
+<input type="checkbox" id="edit-post-modal" class="modal-toggle" />
+<div class="modal">
+  <div class="modal-box">
+    <label for="edit-post-modal" class="btn btn-error btn-xs bg-red-500 border-red-500 btn-circle absolute right-4 top-4">✕</label>
+    <h1 class="text-center text-2xl mb-4">Edit Post</h1>
+    <form action="{{ route('posts.update', $post) }}" method="post">
+        @csrf
+        @method('PUT')
+        <textarea class="textarea w-full bg-base-200" name="body" id="body" cols="30" rows="4">{{ $post->body }}</textarea>
+        <div class="modal-action">
+            <label for="edit-post-modal">
+                <button type="submit" class="btn btn-primary">Update Post</button>
+            </label>
+        </form>
+    </div>
+  </div>
+</div>
 
 <!-- Delete Comment Modal -->
 <input type="checkbox" id="my-modal-3" class="modal-toggle" />
 <label for="my-modal-4" class="modal cursor-pointer">
 <label class="modal-box relative" for="">
-<label for="my-modal-3" class="btn btn-error btn-xs bg-red-500 text-white border-red-500 btn-circle absolute right-4 top-4">✕</label>
+<label for="my-modal-3" class="btn btn-error btn-xs bg-red-500 border-red-500 btn-circle absolute right-4 top-4">✕</label>
 <h1 class="font-medium normal-case text-2xl flex justify-center mb-5">
             Posty
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
