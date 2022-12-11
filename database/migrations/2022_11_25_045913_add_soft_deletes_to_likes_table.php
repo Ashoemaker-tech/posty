@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::table('likes', function (Blueprint $table) {
             $table->softDeletes();
         });
+        Schema::table('comments', function (Blueprint $table) {
+           $table->softDeletes(); 
+        });
     }
 
     /**

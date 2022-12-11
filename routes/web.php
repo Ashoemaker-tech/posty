@@ -34,6 +34,9 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.
 Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy'])->name('posts.likes');
 
-Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('posts.comments');
-Route::delete('/posts/{post}/comments', [CommentController::class, 'destroy'])->name('comments.destroy');
-Route::put('/posts/{post}/comments', [CommentController::class, 'update'])->name('comments.update');
+Route::get('/comment/add/{post}', [CommentController::class, 'index'])->name('comment');
+Route::post('/comment/add/{post}', [CommentController::class, 'store']);
+Route::put('/posts/comments/{comment}', [CommentController::class, 'update'])->name('comment.edit');
+Route::delete('/posts/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+//  TODO notification Routes GET DELETE

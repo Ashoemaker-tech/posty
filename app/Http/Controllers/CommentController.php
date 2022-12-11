@@ -2,45 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware(['auth'])->only(['store', 'update', 'destroy']);
+    }
+     
+    public function index(Post $post) {
+        return view('comments.index', [
+            'post' => $post
+        ]);
     }
     //
     public function store(Post $post, Request $request) {
-
-        if ($post->commentedBy($request->user())){
-            return response(null, 409);
-        }
-
         $post->comments()->create([
             'user_id' => $request->user()->id,
             'body' => $request->body
         ]);
-
-        return back();
+        // if ($request->user()->id != $post['user_id']) {
+        //      DB::table('notifications')->insert([
+        //         'user_id' => $request->user()->id,
+        //         'message' =>  $request->user()->name . ' commented on your post'
+        //     ]);      
+        // 
+               
+        return redirect('posts');
         
     }
 
-    public function update(Post $post, Request $request) {
+    public function update(Comment $comment, Request $request) {
             $formField = $request->validate([
                 'body' =>'required'
             ]);
-            $post->comments()->update($formField);
+            $comment->update($formField);
             return back();
             
         }
 
-    public function destroy(Post $post, Request $request) {
+    public function destroy(Comment $comment) {
+        Gate::authorize('delete', $comment);
 
-       $post->comments()->delete(); 
+       $comment->delete(); 
         return back();
     }
 }

@@ -6,12 +6,19 @@
         </div>
         {{ $comment->body }}
         <div class="mt-2">
-            @auth
-                <label for="my-modal-2" class="text-base-content mr-2 cursor-pointer">Edit</label>
-                <label for="my-modal-3" class="text-base-content cursor-pointer">Delete</label>
-            @endauth
+            @can('delete', $comment)
+                <div class="flex">
+                    <a href="{{ route('comment.edit', $comment) }}" class="text-base-content mr-2 cursor-pointer">Edit</a>
+                    <form action="{{ route('comments.destroy', $comment) }}" method="post" class="mb-4">
+                        @csrf
+                        @method('Delete', $comment)
+                        <button type="submit" class="text-base-content cursor-pointer">Delete</button>
+                    </form>
+                </div>
+            @endcan
         </div>
     </div>
     <div class="divider"></div>
 </div>
+
 

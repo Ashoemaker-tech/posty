@@ -51,8 +51,6 @@ class PostController extends Controller
 
         Gate::authorize('delete', $post);
 
-        // $request->auth()->user() === $post->user_id ? Response::allow() : Response::deny('You do not own this post.'); 
-
         $post->delete();
 
         return back();
